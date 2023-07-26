@@ -33,6 +33,10 @@
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
+
+import java.util.Deque;
+import java.util.LinkedList;
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -49,7 +53,6 @@
  * }
  */
 class Solution {
-    private boolean FLAG = true;
     public boolean isSymmetric(TreeNode root) {
         if (root == null) return true;
 
@@ -57,10 +60,36 @@ class Solution {
 //        recursion(root.left, root.right);
 
         // ============迭代法===================
+        TreeNode flagNode = new TreeNode();
+        Deque<TreeNode> leftNode = new LinkedList<>();
+        Deque<TreeNode> rightNode = new LinkedList<>();
 
+        leftNode.offer(root.left);
+        rightNode.offer(root.right);
 
+        while (!leftNode.isEmpty() && !rightNode.isEmpty()) {
+            leftNode.offer(flagNode);
+            rightNode.offer(flagNode);
 
-        return FLAG;
+            while (leftNode.peek() != flagNode && rightNode.peek() != flagNode) {
+                TreeNode leftTem = leftNode.poll();
+                TreeNode rightTem = rightNode.poll();
+
+                if (leftTem == null && rightTem == null) continue;
+                else if (leftTem == null) return false;
+                else if (rightTem == null) return false;
+                else if (leftTem.val != rightTem.val) return false;
+
+                leftNode.offer(leftTem.left);
+                leftNode.offer(leftTem.right);
+                rightNode.offer(rightTem.right);
+                rightNode.offer(rightTem.left);
+
+            }
+            leftNode.poll();
+            rightNode.poll();
+        }
+        return true;
     }
 
 //    private void recursion(TreeNode leftNode, TreeNode rightNode) { // ============递归遍历===================

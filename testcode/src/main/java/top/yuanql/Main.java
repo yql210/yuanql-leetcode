@@ -1,0 +1,8 @@
+package top.yuanql;
+
+public class Main {
+    public static void main(String[] args) {
+        int x = -9%4;
+        System.out.println(x);
+    }
+}

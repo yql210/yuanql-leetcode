@@ -47,10 +47,46 @@
 // Related Topics 线段树 数组 👍 19 👎 0
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public long[] handleQuery(int[] nums1, int[] nums2, int[][] queries) {
+        List<Long> result = new ArrayList<>();
 
+        for (int i = 0; i < queries.length; i++) {
+
+            if (queries[i][0] == 1) {
+
+                for (int j = queries[i][1]; j <= queries[i][2]; j++) {
+                    if (nums1[j] == 0){
+                        nums1[j] = 1;
+                    } else {
+                        nums1[j] = 0;
+                    }
+                }
+            } else if (queries[i][0] == 2) {
+                for (int j = 0; j < nums2.length; j++) {
+                    nums2[j] = (int) ((long) nums2[j] + nums1[j] * queries[i][1]);
+                }
+            } else {
+                long tem = 0L;
+                for (int j = 0; j < nums2.length; j++) {
+                    tem += nums2[j];
+                }
+                result.add(tem);
+            }
+        }
+
+        long[] longRes = new long[result.size()];
+
+        for (int i = 0; i < result.size(); i++) {
+            longRes[i] = result.get(i);
+        }
+
+        return longRes;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

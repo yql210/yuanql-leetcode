@@ -39,38 +39,8 @@ import java.util.LinkedList;
  */
 class Solution {
 
-    private int maxLeave = 0;
     public int maxDepth(TreeNode root) {
-        if (root == null) return 0;
-        recus(root, 0);
-//        Deque<TreeNode> queue = new LinkedList<>();
-//
-//        queue.offer(root);
-//
-//        while (!queue.isEmpty()) {
-//            queue.add(null);
-//            while (queue.peek() != null) {
-//                TreeNode poll = queue.poll();
-//                if (poll.left != null)
-//                    queue.offer(poll.left);
-//                if (poll.right != null)
-//                    queue.offer(poll.right);
-//            }
-//            queue.poll();
-//            maxLeave++;
-//        }
-        return maxLeave;
-    }
 
-    private void recus(TreeNode root, int depth) {
-        if (root == null) return;
-        depth++;
-
-        if (maxLeave < depth) {
-            maxLeave = depth;
-        }
-        recus(root.left, depth);
-        recus(root.right, depth);
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

@@ -53,7 +53,48 @@ import java.util.LinkedList;
  * }
  */
 class Solution {
+    private int result = Integer.MAX_VALUE;
+
     public int minDepth(TreeNode root) {
+
+//        // 迭代法：层序遍历
+//        if (root == null) return 0;
+//        int leave = 0;
+//        Deque<TreeNode> queue = new LinkedList<>();
+//
+//        queue.offer(root);
+//
+//        while (!queue.isEmpty()) {
+//            queue.offer(null);
+//            leave++;
+//            while (queue.peek() != null) {
+//                TreeNode poll = queue.poll();
+//                if (poll.left != null)
+//                    queue.offer(poll.left);
+//                if (poll.right != null)
+//                    queue.offer(poll.right);
+//                if (poll.right == null && poll.left == null)
+//                    return leave;
+//            }
+//            queue.poll();
+//        }
+//        return leave;
+
+        // 递归法
+        if (root == null) return 0;
+        recursion(root, 0);
+        return result;
+    }
+
+    private void recursion(TreeNode root, int leave) {
+        if (root == null) return;
+        leave++;
+        if (root.left == null && root.right == null && result > leave) {
+            result = leave;
+            return;
+        }
+        recursion(root.left, leave);
+        recursion(root.right, leave);
 
     }
 }

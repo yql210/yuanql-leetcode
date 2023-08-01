@@ -14,8 +14,9 @@ package top.yuanql.java;
 public class TestOverload {
 
     public static void main(String[] args) {
-        A b = new B();
-        b.test();
+        A b = new A();
+        System.out.println(b instanceof A);
+        System.out.println(b instanceof B);
     }
 
 }
@@ -38,5 +39,7 @@ class B extends A {
         System.out.println("bbbb");
         run();
     }
+
+    
 
 }

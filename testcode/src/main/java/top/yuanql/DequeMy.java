@@ -47,6 +47,8 @@ public class DequeMy {
         }
         System.out.println("queue = " + queue);
 
+        int min = Math.min(1, 2);
+
 
     }
 }

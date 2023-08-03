@@ -95,28 +95,75 @@ import java.util.List;
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public List<String> removeComments(String[] source) {
+//        List<String> result = new ArrayList<>();
+//
+//        boolean flag = true;
+//        StringBuilder strFlag = new StringBuilder();
+//        for (String str : source) {
+//            if (flag && str.contains("//")) {
+//                String[] split = str.split("//");
+//                if (split[0].length() > 0) {
+//                    result.add(split[0]);
+//                }
+//            } else if (flag && str.contains("/*")) {
+//                String[] split = str.split("/\\*");
+//                strFlag.append(split[0]);
+//                flag = false;
+//                if (split[split.length - 1].contains("*/")) {
+//                    flag = true;
+//                    String[] split1 = split[split.length - 1].split("\\*/");
+//                    if (split1.length > 1) {
+//                        strFlag.append(split1[split1.length - 1]);
+//                    }
+//                    if (strFlag.length() > 0) {
+//                        result.add(strFlag.toString());
+//                        strFlag = new StringBuilder();
+//                    }
+//                }
+//            } else if (!flag && str.contains("*/")) {
+//                flag = true;
+//                String[] split = str.split("\\*/");
+//                if (split.length > 1) {
+//                    strFlag.append(split[split.length - 1]);
+//                }
+//                if (strFlag.length() > 0) {
+//                    result.add(strFlag.toString());
+//                }
+//            } else if (flag){
+//                result.add(str);
+//            }
+//        }
+//
+//        return result;
+
+
+
         List<String> result = new ArrayList<>();
 
         boolean flag = true;
         StringBuilder strFlag = new StringBuilder();
         for (String str : source) {
-            if (str.contains("//")) {
-                String[] split = str.split("//");
-                if (split.length >= 2)
-                    result.add(split[0]);
-            } else if (str.contains("/*")) {
-                String[] split = str.split("/*");
-                if (split.length > 1) {
-                    strFlag.append(split[0]);
-                    if (str.contains("*/")) {
-
+            for (int i = 0; i < str.length(); i++) {
+                if (flag) {
+                    if (i + 1 < str.length() && str.charAt(i) == '/' && str.charAt(i + 1) == '/') {
+                        break;
+                    } else if (i + 1 < str.length() && str.charAt(i) == '/' && str.charAt(i + 1) == '*') {
+                        flag = false;
+                        i++;
+                    } else {
+                        strFlag.append(str.charAt(i));
+                    }
+                } else {
+                    if (i + 1 < str.length() && str.charAt(i) == '*' && str.charAt(i + 1) == '/') {
+                        flag = true;
+                        i++;
                     }
                 }
+            }
 
-            } else if (str.contains("*/")) {
-
-            } else {
-                result.add(str);
+            if (flag && strFlag.length() > 0) {
+                result.add(strFlag.toString());
+                strFlag = new StringBuilder();
             }
         }
 

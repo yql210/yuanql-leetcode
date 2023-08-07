@@ -32,18 +32,18 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public void reverseString(char[] s) {
-//        int left = 0,  // 对撞指针的左指针
-//                right = s.length - 1;  // 对撞指针的右指针
-//        char temp;
-//        while (left <= right) {
-//            temp = s[left];
-//            s[left++] = s[right];
-//            s[right--] = temp;
-//        }
-        String sda = "aaa";
-
-        StringBuilder tem = new StringBuilder();
-        StringBuilder reverse = tem.reverse();
+        int left = 0,  // 对撞指针的左指针
+                right = s.length - 1;  // 对撞指针的右指针
+        char temp;
+        while (left <= right) {
+            temp = s[left];
+            s[left++] = s[right];
+            s[right--] = temp;
+        }
+//        String sda = "aaa";
+//
+//        StringBuilder tem = new StringBuilder();
+//        StringBuilder reverse = tem.reverse();
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

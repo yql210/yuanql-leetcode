@@ -36,7 +36,15 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int subtractProductAndSum(int n) {
+        int sum = 0, mul = 1, i;
 
+        for (; n > 0;) {
+            i = n % 10;
+            sum += i;
+            mul *= i;
+            n = n / 10;
+        }
+        return mul - sum;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

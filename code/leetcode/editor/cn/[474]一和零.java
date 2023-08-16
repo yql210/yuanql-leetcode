@@ -43,7 +43,22 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int findMaxForm(String[] strs, int m, int n) {
+        int[][] dp = new int[m + 1][n + 1];
 
+        for (int i = 0; i < strs.length; i++) {
+            String str = strs[i];
+            int num0 = 0, num1 = 0;
+            for (int j = 0; j < str.length(); j++) { // 统计0和1的数量
+                if ('0'== str.charAt(j)) num0++;
+                else num1++;
+            }
+            for (int j = m; j >= num0; j--) { // dp的核心逻辑
+                for (int k = n; k >= num1; k--) {
+                    dp[j][k] = Math.max(dp[j][k], dp[j - num0][k - num1] + 1); // 传递函数
+                }
+            }
+        }
+        return dp[m][n];
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

@@ -40,51 +40,77 @@
 // Related Topics 贪心 数组 👍 1269 👎 0
 
 
+import java.util.List;
 import java.util.PriorityQueue;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int candy(int[] ratings) {
-        if (ratings.length == 1) return 1;
-        if (ratings.length == 2) {
-            if (ratings[0] == ratings[1]) return 2;
-            return 3;
+//        if (ratings.length == 1) return 1;
+//        if (ratings.length == 2) {
+//            if (ratings[0] == ratings[1]) return 2;
+//            return 3;
+//        }
+//
+//        PriorityQueue<Integer[]> queue = new PriorityQueue<>((o1, o2) -> o1[0].compareTo(o2[0]));
+//        int[] children = new int[ratings.length];
+//        int sum = 0;
+//
+//        for (int i = 1; i < ratings.length - 1; i++) {
+//            queue.offer(new Integer[]{ratings[i], i});
+//        }
+//        if (ratings[0] <= ratings[1]) children[0] = 1;
+//        if (ratings[ratings.length - 1] <= ratings[ratings.length - 2]) children[ratings.length - 1] = 1;
+//
+//        while (!queue.isEmpty()) {
+//            int index = queue.poll()[1];
+//
+//                if (ratings[index] == ratings[index + 1] && ratings[index] == ratings[index - 1]) {
+//                    children[index] = 1;
+//                } else if (ratings[index] == ratings[index + 1]){
+//                    children[index] = children[index - 1] + 1;
+//                } else if (ratings[index] == ratings[index - 1]){
+//                    children[index] = children[index + 1] + 1;
+//                } else {
+//                    children[index] = Math.max(children[index + 1], children[index - 1]) + 1;
+//                }
+//
+//                sum += children[index];
+//
+//        }
+//
+//        if (ratings[0] > ratings[1]) sum += children[1] + 1;
+//        else sum += 1;
+//
+//        if (ratings[ratings.length - 1] > ratings[ratings.length - 2]) sum += children[ratings.length - 2] + 1;
+//        else sum += 1;
+//
+//        return sum;
+
+        // 根据官方题解得
+
+        int[] list = new int[ratings.length];
+        list[0] = 1;
+        for (int i = 1; i < ratings.length; i++) {
+            if (ratings[i] > ratings[i - 1]) {
+                list[i] = list[i - 1] + 1;
+            } else {
+                list[i] = 1;
+            }
         }
 
-        PriorityQueue<Integer[]> queue = new PriorityQueue<>((o1, o2) -> o1[0].compareTo(o2[0]));
-        int[] children = new int[ratings.length];
-        int sum = 0;
-
-        for (int i = 1; i < ratings.length - 1; i++) {
-            queue.offer(new Integer[]{ratings[i], i});
-        }
-        if (ratings[0] <= ratings[1]) children[0] = 1;
-        if (ratings[ratings.length - 1] <= ratings[ratings.length - 2]) children[ratings.length - 1] = 1;
-
-        while (!queue.isEmpty()) {
-            int index = queue.poll()[1];
-
-                if (ratings[index] == ratings[index + 1] && ratings[index] == ratings[index - 1]) {
-                    children[index] = 1;
-                } else if (ratings[index] == ratings[index + 1]){
-                    children[index] = children[index - 1] + 1;
-                } else if (ratings[index] == ratings[index - 1]){
-                    children[index] = children[index + 1] + 1;
-                } else {
-                    children[index] = Math.max(children[index + 1], children[index - 1]) + 1;
-                }
-
-                sum += children[index];
-
+        for (int i = ratings.length - 2; i >= 0; i--) {
+            if (ratings[i] > ratings[i + 1]) {
+                list[i] = Math.max(list[i], list[i + 1] + 1);
+            }
         }
 
-        if (ratings[0] > ratings[1]) sum += children[1] + 1;
-        else sum += 1;
+        int result = 0;
 
-        if (ratings[ratings.length - 1] > ratings[ratings.length - 2]) sum += children[ratings.length - 2] + 1;
-        else sum += 1;
-
-        return sum;
+        for (int i = 0; i < list.length; i++) {
+            result += list[i];
+        }
+        return result;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

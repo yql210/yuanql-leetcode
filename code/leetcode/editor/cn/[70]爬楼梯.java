@@ -38,14 +38,27 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int climbStairs(int n) {
-        if (n < 3) return n;
-        int left = 1, right = 2, result = 0;
-        for (int i = 2; i < n; i++) {
-            result = left + right;
-            left = right;
-            right = result;
+//        if (n < 3) return n;
+//        int left = 1, right = 2, result = 0;
+//        for (int i = 2; i < n; i++) {
+//            result = left + right;
+//            left = right;
+//            right = result;
+//        }
+//        return result;
+
+
+        // 动态规划进阶：完全背包问题，有多少种排列
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+
+        for (int i = 0; i < n + 1; i++) {
+            for (int j = 1; j <= 2; j++) {
+                if (i - j >= 0) dp[i] += dp[i - j];
+            }
         }
-        return result;
+        return dp[n];
+
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

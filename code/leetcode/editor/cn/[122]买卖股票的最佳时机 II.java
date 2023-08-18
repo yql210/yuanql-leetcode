@@ -61,14 +61,20 @@ class Solution {
 //        return result;
 
         // 动态规划
-        int[] dp = new int[prices.length];
+//        int[] dp = new int[prices.length];
+//
+//        dp[0] = 0;
+//
+//        for (int i = 1; i < prices.length; i++) {
+//            dp[i] = Math.max(dp[i - 1], dp[i - 1] + prices[i] - prices[i - 1]);
+//        }
+//        return dp[dp.length - 1];
 
-        dp[0] = 0;
-
+        int dp = 0;
         for (int i = 1; i < prices.length; i++) {
-            dp[i] = Math.max(dp[i - 1], dp[i - 1] + prices[i] - prices[i - 1]);
+            dp = Math.max(dp, dp + prices[i] - prices[i - 1]);
         }
-        return dp[dp.length - 1];
+        return dp;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

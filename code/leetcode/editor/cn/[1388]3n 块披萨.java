@@ -50,7 +50,29 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int maxSizeSlices(int[] slices) {
+        return Math.max(cal(slices, 0, slices.length -1), cal(slices, 1, slices.length));
+    }
 
+    private int cal(int[] slices, int start, int end) {
+        int N = end - start, n = (end - start + 2) / 3;
+        int[][] dp = new int[N][n + 1];
+
+        dp[0][0] = 0;
+        dp[0][1] = slices[start];
+        dp[1][0] = 0;
+        dp[1][1] = Math.max(slices[start], slices[start + 1]);
+
+        for (int i = 2; i < end - start; i++) {
+            dp[i][0] = 0;
+            for (int j = 1; j <= n; j++) {
+                dp[i][j] = Math.max(dp[i - 1][j], dp[i - 2][j - 1] + slices[i + start]);
+//                System.out.print("   dp[i][j] = " + dp[i][j]);
+
+            }
+//            System.out.println();
+        }
+//        System.out.println();
+        return dp[N - 1][n];
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

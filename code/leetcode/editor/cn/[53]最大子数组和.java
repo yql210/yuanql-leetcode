@@ -57,17 +57,25 @@ class Solution {
 //        }
 //        return result;
 
+//        // DP
+//        int result = nums[0];
+//        int[] dp = new int[nums.length];
+//        dp[0] = nums[0];
+//
+//        for (int i = 1; i < nums.length; i++) {
+//            dp[i] = Math.max(nums[i], dp[i - 1] + nums[i]);
+//            if (dp[i] > result) result = dp[i];
+//        }
+//        return result;
+
         // DP
         int result = nums[0];
-        int[] dp = new int[nums.length];
-        dp[0] = nums[0];
-
+        int dp = nums[0];
         for (int i = 1; i < nums.length; i++) {
-            dp[i] = Math.max(nums[i], dp[i - 1] + nums[i]);
-            if (dp[i] > result) result = dp[i];
+            dp = Math.max(nums[i], dp + nums[i]);
+            result = Math.max(dp, result);
         }
         return result;
-
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

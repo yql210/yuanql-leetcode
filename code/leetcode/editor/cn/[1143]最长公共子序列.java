@@ -49,25 +49,38 @@
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
-        int[] dp = new int[text1.length()];
-        int result = 0;
+//        int[] dp = new int[text1.length()];
+//        int result = 0;
+//
+//        for (int i = 0; i < text2.length(); i++) {
+//            for (int j = text1.length() - 1; j >= 0; j--) {
+//                if (text2.charAt(i) == text1.charAt(j)) {
+//                    dp[j] = 1;
+//                    for (int k = 0; k < j; k++) {
+//                        dp[j] = Math.max(dp[j], dp[k] + 1);
+//                    }
+//                    result = Math.max(result, dp[j]);
+//                }
+//            }
+////            for (int j = 0; j < text1.length(); j++) {
+////                System.out.print("    " + dp[j]);
+////            }
+////            System.out.println();
+//        }
+//        return result;
 
-        for (int i = 0; i < text2.length(); i++) {
-            for (int j = text1.length() - 1; j >= 0; j--) {
-                if (text2.charAt(i) == text1.charAt(j)) {
-                    dp[j] = 1;
-                    for (int k = 0; k < j; k++) {
-                        dp[j] = Math.max(dp[j], dp[k] + 1);
-                    }
-                    result = Math.max(result, dp[j]);
+        int[][] dp = new int[text1.length() + 1][text2.length() + 1];
+
+        for (int i = 1; i <= text1.length(); i++) {
+            for (int j = 1; j <= text2.length(); j++) {
+                if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
                 }
             }
-//            for (int j = 0; j < text1.length(); j++) {
-//                System.out.print("    " + dp[j]);
-//            }
-//            System.out.println();
         }
-        return result;
+        return dp[text1.length()][text2.length()];
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
